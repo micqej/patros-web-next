@@ -1,0 +1,15 @@
+{
+  "name": "Patros Roll s.r.o.",
+  "short_name": "Patros Roll",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1c3a5c",
+  "icons": [
+    {
+      "src": "/logo-cropped.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://patros-web-next.vercel.app/sitemap.xml

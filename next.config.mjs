@@ -3,6 +3,47 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  async redirects() {
+    return [
+      { source: "/index.html", destination: "/", permanent: true },
+      { source: "/o-nas.html", destination: "/o-nas", permanent: true },
+      { source: "/sluzby.html", destination: "/sluzby", permanent: true },
+      { source: "/kariera.html", destination: "/kariera", permanent: true },
+      { source: "/kontakt.html", destination: "/kontakt", permanent: true },
+      {
+        source: "/sluzby/energeticke-audity.html",
+        destination: "/sluzby/energeticke-audity",
+        permanent: true,
+      },
+      {
+        source: "/sluzby/technicke-audity.html",
+        destination: "/sluzby/technicke-audity",
+        permanent: true,
+      },
+      { source: "/sluzby/poradenstvo.html", destination: "/sluzby/poradenstvo", permanent: true },
+      {
+        source: "/sluzby/online-monitoring.html",
+        destination: "/sluzby/online-monitoring",
+        permanent: true,
+      },
+      {
+        source: "/sluzby/firemny-energetik.html",
+        destination: "/sluzby/firemny-energetik",
+        permanent: true,
+      },
+      {
+        source: "/sluzby/firemný-energetik.html",
+        destination: "/sluzby/firemny-energetik",
+        permanent: true,
+      },
+      { source: "/sluzby/ea-budov.html", destination: "/sluzby/ea-budov", permanent: true },
+      {
+        source: "/sluzby/ea-budov-a-verejných-budov.html",
+        destination: "/sluzby/ea-budov-a-verejnych-budov",
+        permanent: true,
+      },
+    ]
+  },
   async rewrites() {
     return {
       beforeFiles: [
@@ -23,6 +64,36 @@ const nextConfig = {
         },
       ],
     }
+  },
+  async headers() {
+    return [
+      {
+        source: "/:all*(png|jpg|jpeg|webp|svg|ico)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
+        source: "/:all*(html)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400",
+          },
+          {
+            key: "X-Content-Type-Options",
+            value: "nosniff",
+          },
+          {
+            key: "Referrer-Policy",
+            value: "strict-origin-when-cross-origin",
+          },
+        ],
+      },
+    ]
   },
 }
 
