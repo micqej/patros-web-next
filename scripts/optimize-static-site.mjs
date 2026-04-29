@@ -355,6 +355,7 @@ function processHtml(relativePath) {
   for (const [from, to] of replacements) {
     html = html.split(from).join(to)
   }
+  html = html.replace(/(\.footer-links\{max-width:100%\}){2,}/g, ".footer-links{max-width:100%}")
 
   fs.writeFileSync(filePath, html)
 }
