@@ -267,9 +267,93 @@ function processHtml(relativePath) {
     /<img src="\/logo-cropped\.png" alt="Patros Roll"(?: fetchpriority="high" decoding="async")*/g,
     '<img src="/logo-cropped.png" alt="Patros Roll" fetchpriority="high" decoding="async"',
   )
+  html = html.replace(/(<img src="\/logo-cropped\.png"[^>]*?) style="height:64px"/g, "$1")
 
   for (const [from, to] of rewrites.entries()) {
     html = html.split(`"${from}"`).join(`"${to}"`)
+  }
+
+  const replacements = [
+    [
+      '.nav{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nav-h);background:var(--white);border-bottom:3px solid var(--green);display:flex;align-items:center;justify-content:space-between;padding:0 52px;gap:20px;box-shadow:0 2px 12px rgba(0,0,0,.06)}',
+      '.nav{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nav-h);background:var(--white);border-bottom:3px solid var(--green);display:flex;align-items:center;justify-content:space-between;padding:0 52px;gap:20px;box-shadow:0 2px 12px rgba(0,0,0,.06);overflow:visible}.nav::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:3px;background:linear-gradient(90deg,rgba(45,122,45,0) 0%,rgba(45,122,45,.22) 18%,rgba(45,122,45,.55) 50%,rgba(45,122,45,.22) 82%,rgba(45,122,45,0) 100%);pointer-events:none}.nav-logo{display:flex;align-items:center;height:100%;position:relative;z-index:2}.nav-logo::after{content:"";position:absolute;left:50%;bottom:-18px;transform:translateX(-18%);width:78px;height:26px;background:radial-gradient(circle,rgba(76,175,80,.28) 0%,rgba(76,175,80,.08) 45%,rgba(76,175,80,0) 75%);filter:blur(5px);pointer-events:none}',
+    ],
+    [
+      '.nav-logo img{height:96px;transition:opacity .2s;display:block;margin-bottom:-3px}',
+      '.nav-logo img{height:110px;transition:transform .18s,filter .18s,opacity .2s;display:block;margin-bottom:-18px;filter:drop-shadow(0 8px 18px rgba(28,58,92,.14))}.nav-logo:hover img{transform:translateY(-1px);filter:drop-shadow(0 12px 22px rgba(28,58,92,.18))}',
+    ],
+    [
+      '.svc-cell{background:#fff;padding:32px 28px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);display:flex;flex-direction:column;gap:13px;transition:background .18s}',
+      '.svc-cell{background:#fff;padding:32px 28px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);display:flex;flex-direction:column;gap:13px;transition:background .18s,transform .18s,box-shadow .18s;position:relative;overflow:hidden;isolation:isolate}.svc-cell::after{content:"";position:absolute;left:50%;bottom:-92px;transform:translateX(-50%) scale(.9);width:210px;height:210px;border-radius:50%;background:radial-gradient(circle,rgba(76,175,80,.16) 0%,rgba(76,175,80,0) 70%);opacity:0;transition:opacity .25s,transform .25s;pointer-events:none;z-index:0}.svc-cell>*{position:relative;z-index:1}',
+    ],
+    [
+      '.svc-cell:hover{background:var(--green-l)}',
+      '.svc-cell:hover{background:var(--green-l);transform:translateY(-3px);box-shadow:0 20px 44px rgba(28,58,92,.08)}.svc-cell:hover::after{opacity:1;transform:translateX(-50%) scale(1.08)}',
+    ],
+    [
+      '.svc-vis{display:flex;align-items:center;justify-content:center}',
+      '.svc-vis{display:flex;align-items:center;justify-content:center}.svc-vis svg{box-shadow:0 18px 44px rgba(28,58,92,.16);transition:transform .28s,box-shadow .28s}.svc-section:hover .svc-vis svg{transform:translateY(-4px);box-shadow:0 24px 54px rgba(28,58,92,.22)}',
+    ],
+    [
+      'footer{background:var(--navy);padding:36px 52px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;border-top:3px solid var(--green)}',
+      'footer{background:var(--navy);padding:36px 112px 36px 52px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;border-top:3px solid var(--green);position:relative}',
+    ],
+    [
+      '.footer-links{display:flex;gap:24px;flex-wrap:wrap}',
+      '.footer-links{display:flex;gap:24px;flex-wrap:wrap;max-width:calc(100% - 96px)}',
+    ],
+    [
+      '.btt{position:fixed;bottom:32px;right:32px;width:44px;height:44px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 3px 14px rgba(45,122,45,.4);transition:background .15s;z-index:100}',
+      '.btt{position:fixed;bottom:40px;right:24px;width:52px;height:52px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 10px 28px rgba(45,122,45,.38);transition:transform .18s,background .15s,box-shadow .18s;z-index:100;animation:btt-pulse 2.6s ease-in-out infinite}',
+    ],
+    [
+      '.btt:hover{background:var(--navy)}',
+      '.btt:hover{background:var(--navy);transform:translateY(-2px)}@keyframes btt-pulse{0%,100%{box-shadow:0 10px 28px rgba(45,122,45,.34)}50%{box-shadow:0 14px 34px rgba(45,122,45,.5)}}',
+    ],
+    [
+      '.nav{padding:0 18px}.nav-logo img{height:72px}',
+      '.nav{padding:0 18px}.nav-logo img{height:86px;margin-bottom:-12px}.nav-logo::after{bottom:-14px;width:60px;height:18px}',
+    ],
+    [
+      'footer{padding:24px 20px}',
+      'footer{padding:24px 20px}.footer-links{max-width:100%}',
+    ],
+    [
+      '.hero-energy-bg .ep{position:absolute;border-radius:50%;animation:ep-rise linear infinite}',
+      '.hero-energy-bg .ep{position:absolute;border-radius:50%;animation:ep-rise linear infinite,ep-drift ease-in-out infinite alternate}',
+    ],
+    [
+      '@keyframes ep-rise{0%{opacity:0;transform:translateY(0) scale(1)}15%{opacity:.5}80%{opacity:.25}100%{opacity:0;transform:translateY(-120px) scale(.2)}}',
+      '@keyframes ep-rise{0%{opacity:0;transform:translateY(0) scale(1)}15%{opacity:.55}80%{opacity:.25}100%{opacity:0;transform:translateY(-120px) scale(.2)}}@keyframes ep-drift{0%{margin-left:-4px}100%{margin-left:10px}}',
+    ],
+    [
+      '<a href="/"><img src="/logo-cropped.png" alt="Patros Roll" fetchpriority="high" decoding="async" style="height:64px"></a>',
+      '<a href="/" class="nav-logo"><img src="/logo-cropped.png" alt="Patros Roll" fetchpriority="high" decoding="async"></a>',
+    ],
+    [
+      '<a href="/" class="nav-logo"><img src="/logo-cropped.png" alt="Patros Roll" fetchpriority="high" decoding="async" style="height:64px"></a>',
+      '<a href="/" class="nav-logo"><img src="/logo-cropped.png" alt="Patros Roll" fetchpriority="high" decoding="async"></a>',
+    ],
+    [
+      'class="btn " style="color:#fff;border-color:rgba(255,255,255,.3)"',
+      'class="btn btn-outline" style="color:#fff;border-color:rgba(255,255,255,.3)"',
+    ],
+    ['href="/sluzby/energeticke-audity"', 'href="/sluzby#energeticke-audity"'],
+    ['href="/sluzby/ea-budov"', 'href="/sluzby#ea-budov"'],
+    ['href="/sluzby/technicke-audity"', 'href="/sluzby#technicke-audity"'],
+    ['href="/sluzby/online-monitoring"', 'href="/sluzby#online-monitoring"'],
+    ['href="/sluzby/firemny-energetik"', 'href="/sluzby#firemny-energetik"'],
+    ['href="/sluzby/poradenstvo"', 'href="/sluzby#poradenstvo"'],
+    ['url:"/sluzby/energeticke-audity"', 'url:"/sluzby#energeticke-audity"'],
+    ['url:"/sluzby/ea-budov"', 'url:"/sluzby#ea-budov"'],
+    ['url:"/sluzby/technicke-audity"', 'url:"/sluzby#technicke-audity"'],
+    ['url:"/sluzby/online-monitoring"', 'url:"/sluzby#online-monitoring"'],
+    ['url:"/sluzby/firemny-energetik"', 'url:"/sluzby#firemny-energetik"'],
+    ['url:"/sluzby/poradenstvo"', 'url:"/sluzby#poradenstvo"'],
+  ]
+
+  for (const [from, to] of replacements) {
+    html = html.split(from).join(to)
   }
 
   fs.writeFileSync(filePath, html)
@@ -280,7 +364,7 @@ for (const relativePath of Object.keys(pages)) {
 }
 
 const sitemapEntries = Object.values(pages)
-  .filter((page) => !page.noindex)
+  .filter((page) => !page.noindex && page.type !== "Service")
   .map(
     (page) => `  <url>\n    <loc>${fullUrl(page.path)}</loc>\n    <changefreq>${page.path === "/" ? "weekly" : "monthly"}</changefreq>\n    <priority>${page.path === "/" ? "1.0" : "0.8"}</priority>\n  </url>`,
   )

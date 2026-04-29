@@ -12,34 +12,69 @@ const nextConfig = {
       { source: "/kontakt.html", destination: "/kontakt", permanent: true },
       {
         source: "/sluzby/energeticke-audity.html",
-        destination: "/sluzby/energeticke-audity",
+        destination: "/sluzby#energeticke-audity",
         permanent: true,
       },
       {
         source: "/sluzby/technicke-audity.html",
-        destination: "/sluzby/technicke-audity",
+        destination: "/sluzby#technicke-audity",
         permanent: true,
       },
-      { source: "/sluzby/poradenstvo.html", destination: "/sluzby/poradenstvo", permanent: true },
+      { source: "/sluzby/poradenstvo.html", destination: "/sluzby#poradenstvo", permanent: true },
       {
         source: "/sluzby/online-monitoring.html",
-        destination: "/sluzby/online-monitoring",
+        destination: "/sluzby#online-monitoring",
         permanent: true,
       },
       {
         source: "/sluzby/firemny-energetik.html",
-        destination: "/sluzby/firemny-energetik",
+        destination: "/sluzby#firemny-energetik",
         permanent: true,
       },
       {
         source: "/sluzby/firemný-energetik.html",
-        destination: "/sluzby/firemny-energetik",
+        destination: "/sluzby#firemny-energetik",
         permanent: true,
       },
-      { source: "/sluzby/ea-budov.html", destination: "/sluzby/ea-budov", permanent: true },
+      { source: "/sluzby/ea-budov.html", destination: "/sluzby#ea-budov", permanent: true },
       {
         source: "/sluzby/ea-budov-a-verejných-budov.html",
-        destination: "/sluzby/ea-budov-a-verejnych-budov",
+        destination: "/sluzby#ea-budov",
+        permanent: true,
+      },
+      {
+        source: "/sluzby/energeticke-audity",
+        destination: "/sluzby#energeticke-audity",
+        permanent: true,
+      },
+      {
+        source: "/sluzby/technicke-audity",
+        destination: "/sluzby#technicke-audity",
+        permanent: true,
+      },
+      {
+        source: "/sluzby/poradenstvo",
+        destination: "/sluzby#poradenstvo",
+        permanent: true,
+      },
+      {
+        source: "/sluzby/online-monitoring",
+        destination: "/sluzby#online-monitoring",
+        permanent: true,
+      },
+      {
+        source: "/sluzby/firemny-energetik",
+        destination: "/sluzby#firemny-energetik",
+        permanent: true,
+      },
+      {
+        source: "/sluzby/ea-budov",
+        destination: "/sluzby#ea-budov",
+        permanent: true,
+      },
+      {
+        source: "/sluzby/ea-budov-a-verejnych-budov",
+        destination: "/sluzby#ea-budov",
         permanent: true,
       },
     ]
