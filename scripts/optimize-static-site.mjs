@@ -263,7 +263,10 @@ function processHtml(relativePath) {
     "",
   )
   html = html.replace(/src="data:image\/[^"]+"/g, 'src="/logo-cropped.png"')
-  html = html.replace(/<img src="\/logo-cropped\.png" alt="Patros Roll"/g, '<img src="/logo-cropped.png" alt="Patros Roll" fetchpriority="high" decoding="async"')
+  html = html.replace(
+    /<img src="\/logo-cropped\.png" alt="Patros Roll"(?: fetchpriority="high" decoding="async")*/g,
+    '<img src="/logo-cropped.png" alt="Patros Roll" fetchpriority="high" decoding="async"',
+  )
 
   for (const [from, to] of rewrites.entries()) {
     html = html.split(`"${from}"`).join(`"${to}"`)
