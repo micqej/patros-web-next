@@ -63,6 +63,10 @@ const nextConfig = {
         { source: "/sluzby/online-monitoring", destination: "/sluzby/online-monitoring.html" },
         { source: "/sluzby/firemny-energetik", destination: "/sluzby/firemny-energetik.html" },
         { source: "/sluzby/ea-budov", destination: "/sluzby/ea-budov.html" },
+        {
+          source: "/sluzby/ea-budov-a-verejnych-budov",
+          destination: "/sluzby/ea-budov-a-verejných-budov.html",
+        },
       ],
     }
   },
