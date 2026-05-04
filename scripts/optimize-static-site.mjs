@@ -6,6 +6,8 @@ const publicDir = path.join(root, "public")
 const siteUrl = "https://patros-web-next.vercel.app"
 const siteName = "Patros Roll s.r.o."
 const defaultImage = `${siteUrl}/og-image.jpg`
+const logoFile = "/logo-transparent.png"
+const logoUrl = `${siteUrl}${logoFile}`
 
 const pages = {
   "index.html": {
@@ -171,7 +173,7 @@ function createSchema(meta) {
     "@type": "Organization",
     name: siteName,
     url: siteUrl,
-    logo: `${siteUrl}/logo-cropped.png`,
+    logo: logoUrl,
     email: "patros@patros.sk",
     telephone: "+421902241620",
     address: {
@@ -228,12 +230,12 @@ function buildHead(meta) {
 <meta name="theme-color" content="#1c3a5c">
 <meta name="format-detection" content="telephone=yes">
 <link rel="canonical" href="${fullUrl(meta.path)}">
-<link rel="icon" href="/logo-cropped.png" type="image/png">
-<link rel="apple-touch-icon" href="/logo-cropped.png">
+<link rel="icon" href="${logoFile}" type="image/png">
+<link rel="apple-touch-icon" href="${logoFile}">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="image" href="/logo-cropped.png" fetchpriority="high">
+<link rel="preload" as="image" href="${logoFile}" fetchpriority="high">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <meta property="og:locale" content="sk_SK">
 <meta property="og:type" content="website">
@@ -262,12 +264,13 @@ function processHtml(relativePath) {
     /@import url\("https:\/\/fonts\.googleapis\.com\/css2\?family=Inter:[^"]+"\);\s*/g,
     "",
   )
-  html = html.replace(/src="data:image\/[^"]+"/g, 'src="/logo-cropped.png"')
+  html = html.replace(/src="data:image\/[^"]+"/g, `src="${logoFile}"`)
   html = html.replace(
-    /<img src="\/logo-cropped\.png" alt="Patros Roll"(?: fetchpriority="high" decoding="async")*/g,
-    '<img src="/logo-cropped.png" alt="Patros Roll" fetchpriority="high" decoding="async"',
+    /<img src="\/(?:logo-cropped|logo-transparent)\.png" alt="Patros Roll"(?: fetchpriority="high" decoding="async")*/g,
+    `<img src="${logoFile}" alt="Patros Roll" fetchpriority="high" decoding="async"`,
   )
-  html = html.replace(/(<img src="\/logo-cropped\.png"[^>]*?) style="height:64px"/g, "$1")
+  html = html.replace(/(<img src="\/(?:logo-cropped|logo-transparent)\.png"[^>]*?) style="height:64px"/g, "$1")
+  html = html.split("/logo-cropped.png").join(logoFile)
 
   for (const [from, to] of rewrites.entries()) {
     html = html.split(`"${from}"`).join(`"${to}"`)
@@ -336,11 +339,11 @@ function processHtml(relativePath) {
     ],
     [
       '<a href="/"><img src="/logo-cropped.png" alt="Patros Roll" fetchpriority="high" decoding="async" style="height:64px"></a>',
-      '<a href="/" class="nav-logo"><img src="/logo-cropped.png" alt="Patros Roll" fetchpriority="high" decoding="async"></a>',
+      `<a href="/" class="nav-logo"><img src="${logoFile}" alt="Patros Roll" fetchpriority="high" decoding="async"></a>`,
     ],
     [
       '<a href="/" class="nav-logo"><img src="/logo-cropped.png" alt="Patros Roll" fetchpriority="high" decoding="async" style="height:64px"></a>',
-      '<a href="/" class="nav-logo"><img src="/logo-cropped.png" alt="Patros Roll" fetchpriority="high" decoding="async"></a>',
+      `<a href="/" class="nav-logo"><img src="${logoFile}" alt="Patros Roll" fetchpriority="high" decoding="async"></a>`,
     ],
     [
       'class="btn " style="color:#fff;border-color:rgba(255,255,255,.3)"',
@@ -409,7 +412,7 @@ fs.writeFileSync(
       theme_color: "#1c3a5c",
       icons: [
         {
-          src: "/logo-cropped.png",
+          src: logoFile,
           sizes: "512x512",
           type: "image/png",
         },
