@@ -280,7 +280,11 @@ function processHtml(relativePath) {
     ],
     [
       '.nav-logo img{height:96px;transition:opacity .2s;display:block;margin-bottom:-3px}',
+      '.nav-logo img{height:98px;transition:transform .18s,filter .18s,opacity .2s;display:block;margin-bottom:-14px;filter:drop-shadow(0 8px 18px rgba(28,58,92,.14))}.nav-logo:hover img{transform:translateY(-1px);filter:drop-shadow(0 12px 22px rgba(28,58,92,.18))}',
+    ],
+    [
       '.nav-logo img{height:110px;transition:transform .18s,filter .18s,opacity .2s;display:block;margin-bottom:-18px;filter:drop-shadow(0 8px 18px rgba(28,58,92,.14))}.nav-logo:hover img{transform:translateY(-1px);filter:drop-shadow(0 12px 22px rgba(28,58,92,.18))}',
+      '.nav-logo img{height:98px;transition:transform .18s,filter .18s,opacity .2s;display:block;margin-bottom:-14px;filter:drop-shadow(0 8px 18px rgba(28,58,92,.14))}.nav-logo:hover img{transform:translateY(-1px);filter:drop-shadow(0 12px 22px rgba(28,58,92,.18))}',
     ],
     [
       '.svc-cell{background:#fff;padding:32px 28px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);display:flex;flex-direction:column;gap:13px;transition:background .18s}',
@@ -312,7 +316,11 @@ function processHtml(relativePath) {
     ],
     [
       '.nav{padding:0 18px}.nav-logo img{height:72px}',
+      '.nav{padding:0 18px}.nav-logo img{height:78px;margin-bottom:-10px}.nav-logo::after{bottom:-12px;width:56px;height:16px}',
+    ],
+    [
       '.nav{padding:0 18px}.nav-logo img{height:86px;margin-bottom:-12px}.nav-logo::after{bottom:-14px;width:60px;height:18px}',
+      '.nav{padding:0 18px}.nav-logo img{height:78px;margin-bottom:-10px}.nav-logo::after{bottom:-12px;width:56px;height:16px}',
     ],
     [
       'footer{padding:24px 20px}',
@@ -355,6 +363,14 @@ function processHtml(relativePath) {
   for (const [from, to] of replacements) {
     html = html.split(from).join(to)
   }
+  html = html.replace(
+    /\.nav-logo img\{height:\d+px;transition:transform \.18s,filter \.18s,opacity \.2s;display:block;margin-bottom:-\d+px;filter:drop-shadow\(0 8px 18px rgba\(28,58,92,.14\)\)\}\.nav-logo:hover img\{transform:translateY\(-1px\);filter:drop-shadow\(0 12px 22px rgba\(28,58,92,.18\)\)\}/g,
+    '.nav-logo img{height:98px;transition:transform .18s,filter .18s,opacity .2s;display:block;margin-bottom:-14px;filter:drop-shadow(0 8px 18px rgba(28,58,92,.14))}.nav-logo:hover img{transform:translateY(-1px);filter:drop-shadow(0 12px 22px rgba(28,58,92,.18))}',
+  )
+  html = html.replace(
+    /\.nav\{padding:0 18px\}\.nav-logo img\{height:\d+px;margin-bottom:-\d+px\}\.nav-logo::after\{bottom:-\d+px;width:\d+px;height:\d+px\}/g,
+    '.nav{padding:0 18px}.nav-logo img{height:78px;margin-bottom:-10px}.nav-logo::after{bottom:-12px;width:56px;height:16px}',
+  )
   html = html.replace(/(\.footer-links\{max-width:100%\}){2,}/g, ".footer-links{max-width:100%}")
 
   fs.writeFileSync(filePath, html)
