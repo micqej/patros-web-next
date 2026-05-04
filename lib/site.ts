@@ -84,7 +84,7 @@ export const siteRoutes = {
 
 export type SiteRouteKey = keyof typeof siteRoutes
 
-export const topLevelRouteKeys: SiteRouteKey[] = ["about", "services", "career", "contact"]
+export const topLevelRouteKeys: SiteRouteKey[] = ["about", "career", "contact"]
 export const serviceRouteKeys: SiteRouteKey[] = [
   "energeticke-audity",
   "technicke-audity",
