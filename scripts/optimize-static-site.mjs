@@ -6,6 +6,7 @@ const publicDir = path.join(root, "public")
 const siteUrl = "https://patros-web-next.vercel.app"
 const siteName = "Patros Roll s.r.o."
 const defaultImage = `${siteUrl}/og-image.jpg`
+const faviconFile = "/favicon-patros.png"
 const logoFile = "/logo-transparent.png"
 const logoUrl = `${siteUrl}${logoFile}`
 
@@ -230,8 +231,9 @@ function buildHead(meta) {
 <meta name="theme-color" content="#1c3a5c">
 <meta name="format-detection" content="telephone=yes">
 <link rel="canonical" href="${fullUrl(meta.path)}">
-<link rel="icon" href="${logoFile}" type="image/png">
-<link rel="apple-touch-icon" href="${logoFile}">
+<link rel="icon" href="${faviconFile}" type="image/png">
+<link rel="shortcut icon" href="${faviconFile}" type="image/png">
+<link rel="apple-touch-icon" href="${faviconFile}">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
