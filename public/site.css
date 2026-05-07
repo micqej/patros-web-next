@@ -68,11 +68,11 @@ button,input,textarea{font:inherit}
   pointer-events:none;filter:blur(2px);opacity:.72;z-index:0;animation:driftField 14s ease-in-out infinite alternate}
 .home-page main > section{position:relative;z-index:1}
 .home-page .hero{padding:58px 0 20px}
-.home-page .hero-grid{border-bottom:0;background:transparent;align-items:start}
+.home-page .hero-grid{border-bottom:0;background:transparent;align-items:center}
 .home-page .hero-copy{background:transparent;border-right:0;padding:78px 54px 54px 0}
-.home-page .hero-visual{background:transparent;border:0;box-shadow:none;border-radius:0;padding:24px 0 0 28px;display:flex;align-items:flex-start;justify-content:flex-end;overflow:visible}
+.home-page .hero-visual{background:transparent;border:0;box-shadow:none;border-radius:0;padding:42px 0 0 28px;display:flex;align-items:center;justify-content:flex-end;overflow:visible}
 .home-page .section-alt{background:transparent;padding-top:24px}
-.home-page .device-card{margin-right:0}
+.home-page .device-card{margin-right:0;transform:translateY(16px)}
 @keyframes driftField{0%{transform:translateX(-50%) translateY(0)}100%{transform:translateX(-50%) translateY(-28px)}}
 .eyebrow{display:flex;align-items:center;gap:12px;margin:0 0 18px;color:var(--green);font-size:13px;font-weight:800;letter-spacing:.24em;text-transform:uppercase}
 .eyebrow::before{content:"";width:34px;height:2px;background:var(--green)}
@@ -220,6 +220,7 @@ textarea.field{min-height:132px;resize:vertical}
   .shell{width:min(1180px,calc(100% - 24px))}
   .home-page .hero-copy{padding:42px 24px 28px 0}
   .home-page .hero-visual{padding:12px 0 0}
+  .home-page .device-card{transform:none}
 }
 @media (max-width:720px){
   .nav-inner{height:auto;padding:12px 0;flex-direction:column;align-items:stretch}
