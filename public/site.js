@@ -33,7 +33,7 @@ function setLang(lang){
     btn.classList.toggle('is-on', btn.dataset.lang === lang)
   })
   updateSearchResults(document.querySelector('[data-search-input]')?.value || '')
-  updateSpotlight(spotlightIndex)
+  updateSpotlight(spotlightIndex, true)
 }
 
 function activeLang(){
@@ -66,7 +66,7 @@ function updateSearchResults(query){
 }
 
 let spotlightIndex = 0
-function updateSpotlight(index){
+function renderSpotlight(index){
   const host = document.querySelector('[data-spotlight]')
   if(!host) return
   const item = SITE_DATA.spotlight[index]
@@ -77,7 +77,24 @@ function updateSpotlight(index){
   host.querySelector('[data-spotlight-icon]').innerHTML = icon(item.icon)
 }
 
+function updateSpotlight(index, immediate = false){
+  const host = document.querySelector('[data-spotlight]')
+  if(!host) return
+  if (immediate || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    renderSpotlight(index)
+    return
+  }
+  host.classList.add('is-changing')
+  window.setTimeout(() => {
+    renderSpotlight(index)
+    host.classList.remove('is-changing')
+  }, 170)
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.fade').forEach((el, index) => {
+    el.style.setProperty('--reveal-delay', `${Math.min(index * 45, 320)}ms`)
+  })
   setLang(activeLang())
   document.querySelectorAll('.lang-btn').forEach((btn) => {
     btn.addEventListener('click', () => setLang(btn.dataset.lang))
@@ -92,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
     node.addEventListener('mouseleave', () => node.classList.remove('is-open'))
   })
   if(document.querySelector('[data-spotlight]')){
-    updateSpotlight(spotlightIndex)
+    updateSpotlight(spotlightIndex, true)
     setInterval(() => {
       spotlightIndex = (spotlightIndex + 1) % SITE_DATA.spotlight.length
       updateSpotlight(spotlightIndex)
